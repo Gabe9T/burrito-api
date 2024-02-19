@@ -15,12 +15,27 @@ namespace BurritoApi.Controllers
       _db = db;
     }
 
-    // GET: api/Animals
+    // GET: api/Burritos
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Burrito>>> Get(string protein, decimal maxPrice, Double minRating)
+    public async Task<ActionResult<IEnumerable<Burrito>>> Get(string protein, decimal maxPrice, Double minRating, bool random)
     {
       IQueryable<Burrito> query = _db.Burritos.AsQueryable();
+      if (random)
+      {
+        List<Burrito> allBurritos = await query.ToListAsync();
+        if (allBurritos.Count == 0)
+        {
+          return NotFound(); // Return 404 if no burritos are found
+        }
 
+        // Shuffle the list randomly
+        List<Burrito> randomBurritos = allBurritos.OrderBy(x => Guid.NewGuid()).ToList();
+
+        // Take the first (random) burrito from the shuffled list
+        Burrito randomBurrito = randomBurritos.First();
+
+        return Ok(new List<Burrito> { randomBurrito });
+      }
       if (protein != null)
       {
         query = query.Where(entry => entry.Protein == protein);
