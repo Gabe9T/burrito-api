@@ -99,12 +99,16 @@ namespace BurritoApi.Controllers
     }
     // DELETE: api/Burritos/5
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteBurrito(int id)
+    public async Task<IActionResult> DeleteBurrito(int id, string user)
     {
       Burrito burrito = await _db.Burritos.FindAsync(id);
       if (burrito == null)
       {
         return NotFound();
+      }
+      if (user != burrito.User)
+      {
+        return Unauthorized();
       }
 
       _db.Burritos.Remove(burrito);
