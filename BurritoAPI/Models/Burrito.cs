@@ -14,6 +14,7 @@ namespace BurritoApi.Models
         [Required]
         public string Protein { get; set; }
         public string Review { get; set; }
+        public string ImageUrl { get; set; }
         [Required]
         public string User { get; set; }
         [Required]

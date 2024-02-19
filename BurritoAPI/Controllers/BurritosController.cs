@@ -17,7 +17,7 @@ namespace BurritoApi.Controllers
 
     // GET: api/Burritos
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Burrito>>> Get(string protein, decimal maxPrice, Double minRating, bool random)
+    public async Task<ActionResult<IEnumerable<Burrito>>> Get(string protein, decimal maxPrice, Double minRating, bool random, int page = 1, int pageSize = 4)
     {
       IQueryable<Burrito> query = _db.Burritos.AsQueryable();
       if (random)
@@ -48,6 +48,10 @@ namespace BurritoApi.Controllers
       {
         query = query.Where(entry => entry.Rating >= minRating);
       }
+
+      int skipCount = (page - 1) * pageSize;
+
+      query = query.Skip(skipCount).Take(pageSize);
 
       return await query.ToListAsync();
     }
