@@ -8,6 +8,7 @@ namespace BurritoApi.Models
         public string Location { get; set; }
         public string Protein { get; set; }
         public string Review { get; set; }
+        public string User { get; set; }
         public Double Rating { get; set; }
 
     }

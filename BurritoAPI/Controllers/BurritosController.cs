@@ -60,11 +60,23 @@ namespace BurritoApi.Controllers
     }
     // PUT: api/Burritos/5
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, Burrito burrito)
+    public async Task<IActionResult> Put(int id, Burrito burrito, string user)
     {
       if (id != burrito.BurritoId)
       {
         return BadRequest();
+      }
+
+      // Check if the burrito exists
+      if (!BurritoExists(id))
+      {
+        return NotFound();
+      }
+
+      // Check if the user is authorized to edit the burrito
+      if (user != burrito.User)
+      {
+        return Unauthorized();
       }
 
       _db.Burritos.Update(burrito);
@@ -75,14 +87,7 @@ namespace BurritoApi.Controllers
       }
       catch (DbUpdateConcurrencyException)
       {
-        if (!BurritoExists(id))
-        {
-          return NotFound();
-        }
-        else
-        {
-          throw;
-        }
+        throw; // You may want to handle concurrency exceptions according to your application's needs
       }
 
       return NoContent();

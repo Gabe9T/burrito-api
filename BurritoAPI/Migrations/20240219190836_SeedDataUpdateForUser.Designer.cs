@@ -2,6 +2,7 @@
 using BurritoApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BurritoAPI.Migrations
 {
     [DbContext(typeof(BurritoApiContext))]
-    partial class BurritoApiContextModelSnapshot : ModelSnapshot
+    [Migration("20240219190836_SeedDataUpdateForUser")]
+    partial class SeedDataUpdateForUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
