@@ -38,7 +38,7 @@ namespace BurritoApi.Controllers
       }
       if (protein != null)
       {
-        query = query.Where(entry => entry.Protein == protein);
+        query = query.Where(entry => entry.Protein.Contains(protein));
       }
       if (maxPrice > 0)
       {

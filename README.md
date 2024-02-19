@@ -5,6 +5,9 @@
         * Random burrito function
         * ImageUrl property for burritos
         * Patch edit
+        * Documentation
+        * Further Exploration
+        * Pagination
     * Front End
         * React UI?
         * 
