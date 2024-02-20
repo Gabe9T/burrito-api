@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace AuthorizationDemo.Models
+namespace BurritoApi.Models
 {
     public class ApplicationUser : IdentityUser
     {

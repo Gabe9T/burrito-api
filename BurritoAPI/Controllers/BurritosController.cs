@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BurritoApi.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BurritoApi.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
+  [Authorize]
   public class BurritosController : ControllerBase
   {
     private readonly BurritoApiContext _db;
