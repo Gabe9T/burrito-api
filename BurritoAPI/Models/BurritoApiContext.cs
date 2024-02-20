@@ -1,8 +1,10 @@
+using AuthorizationDemo.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BurritoApi.Models
 {
-    public class BurritoApiContext : DbContext
+    public class BurritoApiContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Burrito> Burritos { get; set; }
 

@@ -25,13 +25,10 @@ namespace BurritoApi.Controllers
         List<Burrito> allBurritos = await query.ToListAsync();
         if (allBurritos.Count == 0)
         {
-          return NotFound(); // Return 404 if no burritos are found
+          return NotFound();
         }
 
-        // Shuffle the list randomly
         List<Burrito> randomBurritos = allBurritos.OrderBy(x => Guid.NewGuid()).ToList();
-
-        // Take the first (random) burrito from the shuffled list
         Burrito randomBurrito = randomBurritos.First();
 
         return Ok(new List<Burrito> { randomBurrito });
@@ -86,13 +83,11 @@ namespace BurritoApi.Controllers
         return BadRequest();
       }
 
-      // Check if the burrito exists
       if (!BurritoExists(id))
       {
         return NotFound();
       }
 
-      // Check if the user is authorized to edit the burrito
       if (user != burrito.User)
       {
         return Unauthorized();
@@ -106,7 +101,7 @@ namespace BurritoApi.Controllers
       }
       catch (DbUpdateConcurrencyException)
       {
-        throw; // You may want to handle concurrency exceptions according to your application's needs
+        throw;
       }
 
       return NoContent();
