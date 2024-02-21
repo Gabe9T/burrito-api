@@ -1,8 +1,11 @@
+using BurritoApi.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace BurritoApi.Models
 {
-    public class BurritoApiContext : DbContext
+    public class BurritoApiContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Burrito> Burritos { get; set; }
 
@@ -11,6 +14,12 @@ namespace BurritoApi.Models
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
+            builder.Entity<IdentityUserLogin<string>>(e =>
+            {
+                e.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+            });
             builder.Entity<Burrito>()
               .HasData(
                 new Burrito { BurritoId = 1, Name = "Pastor Burrito", Location = "Beto's", Price = 11.00M, Protein = "Pork", Review = "Very juicy pork, choice of black or pinto beans with rice, cheese, sour cream, onions, and cilantro. All salsas included are high quality and not watery.", Rating = 8.8, User = "Gabe" },
